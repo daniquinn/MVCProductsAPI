@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using MVCProductsAPI.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +28,11 @@ namespace MVCProductsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string mySqlConnection = Configuration.GetConnectionString("DefaultConnection");
+
+            services.AddDbContextPool<DataContext>(options =>
+                    options.UseMySql(mySqlConnection,
+                        ServerVersion.AutoDetect(mySqlConnection)));
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
