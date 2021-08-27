@@ -17,23 +17,11 @@ namespace MVCProductsAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Category>()
-                .Property(p => p.Title)
-                .HasMaxLength(60);
-
-            modelBuilder.Entity<Category>()
                 .HasData(
                     new Products { Id = 1, Title = "Outros" },
                     new Products { Id = 2, Title = "Alimentos" },
                     new Products { Id = 3, Title = "Bebidas" }
                     );
-
-            modelBuilder.Entity<Products>()
-                .Property(p => p.Title)
-                .HasMaxLength(60);
-
-            modelBuilder.Entity<Products>()
-                .Property(p => p.Price)
-                .HasPrecision(10, 2);
 
             modelBuilder.Entity<Products>()
                 .HasData(
