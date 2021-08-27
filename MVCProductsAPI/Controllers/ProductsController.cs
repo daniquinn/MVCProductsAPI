@@ -23,14 +23,14 @@ namespace MVCProductsAPI.Controllers
 
         // GET: api/Products
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Products>>> GetProducts()
+        public async Task<ActionResult<IEnumerable<Product>>> GetProducts()
         {
             return await _context.Products.ToListAsync();
         }
 
         // GET: api/Products/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<Products>> GetProducts(int id)
+        public async Task<ActionResult<Product>> GetProducts(int id)
         {
             var products = await _context.Products.FindAsync(id);
 
@@ -45,7 +45,7 @@ namespace MVCProductsAPI.Controllers
         // PUT: api/Products/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProducts(int id, Products products)
+        public async Task<IActionResult> PutProducts(int id, Product products)
         {
             if (id != products.Id)
             {
@@ -76,7 +76,7 @@ namespace MVCProductsAPI.Controllers
         // POST: api/Products
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Products>> PostProducts(Products products)
+        public async Task<ActionResult<Product>> PostProducts(Product products)
         {
             _context.Products.Add(products);
             await _context.SaveChangesAsync();
