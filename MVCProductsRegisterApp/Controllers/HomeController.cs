@@ -27,6 +27,19 @@ namespace MVCProductsRegisterApp.Controllers
             return View(products);
         }
 
+        public async Task<IActionResult> Details(int Id)
+        {
+            var product = new Product();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync($"api/products/{Id}");
+            if (res.IsSuccessStatusCode)
+            {
+                var results = res.Content.ReadAsStringAsync().Result;
+                product = JsonConvert.DeserializeObject<Product>(results);
+            }
+            return View(product);
+        }
+
         public IActionResult Privacy()
         {
             return View();
