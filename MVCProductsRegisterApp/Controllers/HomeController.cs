@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Net.Http.Json;
 
 namespace MVCProductsRegisterApp.Controllers
 {
@@ -38,6 +39,38 @@ namespace MVCProductsRegisterApp.Controllers
                 product = JsonConvert.DeserializeObject<Product>(results);
             }
             return View(product);
+        }
+
+        public ActionResult create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+
+        public IActionResult create(Product product)
+        {
+            HttpClient client = _api.Initial();
+
+            var postTask = client.PostAsJsonAsync<Product>("api/products", product);
+            postTask.Wait();
+
+            var result = postTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
+
+            return View();
+        }
+
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var product = new Product();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.DeleteAsync($"api/products/{Id}");
+
+            return RedirectToAction("Index");
         }
 
         public IActionResult Privacy()
