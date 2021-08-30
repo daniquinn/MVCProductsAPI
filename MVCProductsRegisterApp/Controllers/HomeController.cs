@@ -41,13 +41,27 @@ namespace MVCProductsRegisterApp.Controllers
             return View(product);
         }
 
+        [HttpPost]
+        public async Task<Product> Edit(Product product)
+        {
+            HttpClient client = _api.Initial();
+
+            HttpResponseMessage res = await client.PutAsJsonAsync(
+                $"api/products/{product.Id}", product);
+            res.EnsureSuccessStatusCode();
+
+            var results = res.Content.ReadAsStringAsync().Result;
+            product = JsonConvert.DeserializeObject<Product>(results);
+
+            return product;
+        }
+
         public ActionResult create()
         {
             return View();
         }
 
         [HttpPost]
-
         public IActionResult create(Product product)
         {
             HttpClient client = _api.Initial();
