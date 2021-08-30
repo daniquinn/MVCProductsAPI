@@ -119,3 +119,4 @@ C:\Users\Daniel\source\repos\MVCProductsAPI\MVCProductsRegisterApp\obj\Debug\net
 C:\Users\Daniel\source\repos\MVCProductsAPI\MVCProductsRegisterApp\obj\Debug\net5.0\MVCProductsRegisterApp.genruntimeconfig.cache
 C:\Users\Daniel\source\repos\MVCProductsAPI\MVCProductsRegisterApp\obj\Debug\net5.0\Razor\Views\Home\Details.cshtml.g.cs
 C:\Users\Daniel\source\repos\MVCProductsAPI\MVCProductsRegisterApp\obj\Debug\net5.0\Razor\Views\Home\create.cshtml.g.cs
+C:\Users\Daniel\source\repos\MVCProductsAPI\MVCProductsRegisterApp\obj\Debug\net5.0\Razor\Views\Home\Edit.cshtml.g.cs

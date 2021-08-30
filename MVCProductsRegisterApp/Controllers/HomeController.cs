@@ -41,19 +41,41 @@ namespace MVCProductsRegisterApp.Controllers
             return View(product);
         }
 
+        //[HttpPost]
+        //public async Task<Product> Edit(Product product)
+        //{
+        //    HttpClient client = _api.Initial();
+
+        //    HttpResponseMessage res = await client.PutAsJsonAsync(
+        //        $"api/products/{product.Id}", product);
+        //    res.EnsureSuccessStatusCode();
+
+        //    var results = res.Content.ReadAsStringAsync().Result;
+        //    product = JsonConvert.DeserializeObject<Product>(results);
+
+        //    return product;
+        //}
+
+        public ActionResult Edit()
+        {
+            return View();
+        }
+
         [HttpPost]
-        public async Task<Product> Edit(Product product)
+        public IActionResult Edit(Product product)
         {
             HttpClient client = _api.Initial();
 
-            HttpResponseMessage res = await client.PutAsJsonAsync(
-                $"api/products/{product.Id}", product);
-            res.EnsureSuccessStatusCode();
+            var putTask = client.PutAsJsonAsync<Product>("api/products", product);
+            putTask.Wait();
 
-            var results = res.Content.ReadAsStringAsync().Result;
-            product = JsonConvert.DeserializeObject<Product>(results);
+            var result = putTask.Result;
+            if (result.IsSuccessStatusCode)
+            {
+                return RedirectToAction("Index");
+            }
 
-            return product;
+            return View();
         }
 
         public ActionResult create()
@@ -98,11 +120,5 @@ namespace MVCProductsRegisterApp.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
     }
 }
